@@ -1,0 +1,78 @@
+schema: draft-07
+name: "gcp-healthcare-hl7v2-store"
+description: "Health Level Seven International Version 2 (HL7v2) is a clinical messaging format that provides data about events that occur inside an organization."
+source_url: github.com/massdriver-cloud/gcp-healthcare-hl7v2-store
+access: private
+type: "infrastructure"
+
+
+params:
+  required:
+    - parser
+  properties:
+    parser:
+      type: object
+      title: Parser Configuration
+      required:
+        - allow_null_header
+        - enable_custom_segment_terminator
+      properties:
+        allow_null_header:
+          type: boolean
+          title: Allow Null Message Headers (MSH)
+          description: If checked, messages with no header are allowed. For more information view [the documentation](https://cloud.google.com/healthcare-api/docs/how-tos/hl7v2-messages#using_a_null_segment_header).
+          default: false
+        enable_custom_segment_terminator:
+          type: boolean
+          title: Set a Custom Segment Terminator
+          description: The HL7v2 message format requires that segments be terminated using the return character `\r``, but you can configure the HL7v2 store to accept HL7v2 messages with a non-standard terminator. For more information view [the documentation](https://cloud.google.com/healthcare-api/docs/how-tos/hl7v2-messages#setting_the_segment_terminator).
+          default: false
+      dependencies:
+        enable_custom_segment_terminator:
+          oneOf:
+            - properties:
+                enable_custom_segment_terminator:
+                  const: false
+            - properties:
+                enable_custom_segment_terminator:
+                  const: true
+                custom_segment_terminator:
+                  type: string
+                  title: Custom Segment Terminator
+                  description: Specify a segment terminator to use
+                  default: "\\r"
+              required:
+                - custom_segment_terminator
+
+
+connections:
+  required:
+    - gcp_authentication
+    - dataset
+  properties:
+    gcp_authentication:
+      $ref: massdriver/gcp-service-account
+    dataset:
+      $ref: massdriver/gcp-healthcare-dataset
+    pubsub_topic:
+      $ref: massdriver/gcp-pubsub-topic
+
+
+artifacts:
+  required:
+    - hl7v2_store
+  properties:
+    hl7v2_store:
+      $ref: massdriver/gcp-healthcare-hl7v2-store
+
+
+ui:
+  ui:order:
+    - parser
+    - "*"
+  parser:
+    ui:order:
+      - allow_null_header
+      - enable_custom_segment_terminator
+      - custom_segment_terminator
+      - "*"
