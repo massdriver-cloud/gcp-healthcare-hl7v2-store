@@ -3,7 +3,6 @@ name: gcp-healthcare-hl7v2-store
 version: 1.0.0
 description: Health Level Seven International Version 2 (HL7v2) is a clinical messaging format that provides data about events that occur inside an organization.
 source_url: https://github.com/massdriver-cloud/gcp-healthcare-hl7v2-store
-type: application
 params:
   required:
   - parser
