@@ -1,7 +1,6 @@
 resource "massdriver_artifact" "hl7v2_store" {
-  field                = "hl7v2_store"
-  provider_resource_id = google_healthcare_hl7_v2_store.main.id
-  name                 = "GCP Healthcare HL7v2 Store ${var.md_metadata.name_prefix}"
+  field    = "hl7v2_store"
+  name     = "GCP Healthcare HL7v2 Store ${var.md_metadata.name_prefix}"
   artifact = jsonencode(
     {
       data = {
