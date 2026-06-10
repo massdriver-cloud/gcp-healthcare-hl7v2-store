@@ -46,17 +46,17 @@ connections:
   - dataset
   properties:
     gcp_authentication:
-      "$ref": massdriver/gcp-service-account
+      "$ref": gcp-service-account
     dataset:
-      "$ref": massdriver/gcp-healthcare-dataset
+      "$ref": gcp-healthcare-dataset
     pubsub_topic:
-      "$ref": massdriver/gcp-pubsub-topic
+      "$ref": gcp-pubsub-topic
 artifacts:
   required:
   - hl7v2_store
   properties:
     hl7v2_store:
-      "$ref": massdriver/gcp-healthcare-hl7v2-store
+      "$ref": gcp-healthcare-hl7v2-store
 ui:
   ui:order:
   - parser
