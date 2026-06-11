@@ -3,16 +3,14 @@
 // To opt a variable out of regeneration, move it to another file (e.g. variables.tf).
 variable "dataset" {
   type = object({
-    data = object({
-      infrastructure = object({
-        grn = string
-      })
-      security = object({
-        iam = optional(map(object({
-          condition = string
-          role      = any
-        })))
-      })
+    infrastructure = object({
+      grn = string
+    })
+    security = object({
+      iam = optional(map(object({
+        condition = string
+        role      = any
+      })))
     })
     specs = object({
       gcp = optional(object({
@@ -66,16 +64,14 @@ variable "parser" {
 }
 variable "pubsub_topic" {
   type = object({
-    data = object({
-      infrastructure = object({
-        grn = string
-      })
-      security = object({
-        iam = optional(map(object({
-          condition = string
-          role      = any
-        })))
-      })
+    infrastructure = object({
+      grn = string
+    })
+    security = object({
+      iam = optional(map(object({
+        condition = string
+        role      = any
+      })))
     })
     specs = object({
       topic = optional(object({
